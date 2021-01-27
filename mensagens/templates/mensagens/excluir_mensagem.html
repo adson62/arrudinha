@@ -1,0 +1,22 @@
+{% extends "mensagens/base.html" %}
+{% block title %}Excluir '{{form.titulo_msg}}'?{% endblock %}
+{% block content %}
+	<div class="row">
+		<div class="col-sm-4 col-md-4 col-lg-4"></div> 
+		<div class="col-sm-4 col-md-4 col-lg-4 border-box">
+			<h4 class="h1">Você tem certeza que deseja excluir '{{form.titulo_msg}}'?</h4>
+
+			<a href="{% url 'mensagens:detail' form.id %}">
+				<button class="voltar" type="button">
+					<i class="fas fa-arrow-alt-circle-left"></i>
+					 NÃO
+				</button>
+			</a>
+			<a href="{% url 'mensagens:excluirMensagens' form.id %}">
+			<button class="enviar">SIM 
+				<i class="fas fa-trash"></i>
+			</button>
+
+		</div>
+	</div>
+{% endblock %}

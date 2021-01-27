@@ -1,0 +1,17 @@
+{% extends "mensagens/base.html" %}
+{% block title %}Editar '{{form_id.titulo_msg}}'{% endblock %}
+{% block content %}
+	<div class="row">
+		<div class="col-sm-4 col-md-4 col-lg-4"></div> 
+		<div class="col-sm-4 col-md-4 col-lg-4 border-box">
+			<h1 class="h1">Editar mensagem <i class="far fa-edit"></i></h1>
+			<span>Mensagem '{{form_id.titulo_msg}}'</span>
+			<form method="POST">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<a href="{% url 'mensagens:detail' form_id.id %}"><button class="voltar" type="button"><i class="fas fa-arrow-alt-circle-left"></i> VOLTAR</button></a>
+				<button class="enviar" type="submit">SALVAR <i class="fas fa-paper-plane"></i></button>
+			</form>
+		</div>
+	</div>
+{% endblock %}

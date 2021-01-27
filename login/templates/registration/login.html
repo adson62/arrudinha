@@ -1,0 +1,46 @@
+{% extends "mensagens/base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+  <p class="h1">Você já está logado.</p>
+{% else %}
+  <div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4"></div>
+    <div class="col-sm-4 col-md-4 col-lg-4 border-box">
+      <h4 class="h1">Entrar na sua conta</h4>
+      {% if form.errors %}
+        <p>Nome de usuário e senha não coincidem, tente novamente.</p>
+      {% endif %}
+      
+      {% if next %}
+        {% if user.is_authenticated %}
+          <p class="h1">Você não tem permissão para acessar esta página.</p>
+        {% else %}
+          <p class="h1">Faça login para acessar esta página.</p>
+        {% endif %}
+      {% endif %}
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="id_username">Usuário:</label>
+        <input type="text" name="username" value="" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+
+        <label for="id_password">Senha:</label>
+        <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+
+        <div style="padding:20px 0px 20px 0px; margin-bottom:30px">
+          <button class="editar" type="submit">Login <i class="fas fa-paper-plane"></i></button>
+          <a class='esqueci' href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <div>
+          <a class='criar' href="{% url 'cadastro:signup' %}">Criar conta</a>
+        </div>
+      </form>
+
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4"></div>
+  </div>
+{% endif %}
+  
+{% endblock %}

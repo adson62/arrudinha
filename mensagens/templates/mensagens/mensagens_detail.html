@@ -1,0 +1,50 @@
+{% extends "mensagens/base.html" %}
+{% block title %}Detalhe da mensagem{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+	<div class="row">
+		<div class="col-sm-4 col-md-4 col-lg-4"></div>
+		<div class="col-sm-4 col-md-4 col-lg-4 border-box">
+			<div class="detalhes">
+				<h1 class="h1" id="detail-h1">{{ mensagens.titulo_msg }}</h1>
+				<p class="detail_mensagem">{{ mensagens.texto_msg }}</p>
+			</div>
+			{% if mensagens.url_foto %}
+			<div class="url_foto">
+				<img id="detail_url_foto" alt="link da foto" src="{{ mensagens.url_foto }}">
+			</div>
+			{% else %}
+			{% endif %}
+			<div class="autor-data">
+				<p class="detail_autor">Autor: {{ mensagens.usuario }}</p>
+				<p class="detail_data">Data: {{ mensagens.data_pub }}</p>
+			</div>
+			<div class="detail-botoes">
+				<a href="{% url 'mensagens:mensagens' %}">
+					<button class="voltar" type="button">
+						<i class="fas fa-arrow-alt-circle-left"></i> VOLTAR
+					</button>
+				</a>
+				{% if request.user == mensagens.usuario or request.user.is_staff%}
+					<a href="{% url 'mensagens:excluirMensagensBotao' mensagens.id %}">
+						<button class="excluir" type="button">
+							<i class="fas fa-trash"></i>
+						</button>
+					</a>
+					<a href="{% url 'mensagens:editarMensagens' mensagens.id %}">
+						<button class="editar" type="button">
+							<i class="fas fa-edit"></i>
+						</button>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<h4 class="h1">Você não tem permissão para acessar esta página pois não está logado!</h4>
+		</div>
+	</div>
+{% endif %}
+{% endblock %}

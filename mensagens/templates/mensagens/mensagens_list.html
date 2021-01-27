@@ -1,0 +1,44 @@
+{% extends "mensagens/base.html" %}
+{% block title %}Mensagens cadastradas!{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<h1 class="h1">Lista de mensagens cadastradas!</h1>
+		</div>
+	</div>
+
+	<div class="mensagens_list">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				{% if mensagens_list %}
+					<ul>
+					{% for i in mensagens_list %}
+						<li>
+							<a href="{% url 'mensagens:detail' i.id %}">{{ i.titulo_msg }} 
+								<i class="fas fa-arrow-alt-circle-right"></i>
+								<br>
+							</a>
+							<small class="small">{{ i.data_pub }}</small>
+						</li>
+					{% endfor %}
+					</ul>
+				{% else %}
+					<p>Nenhuma mensagem cadastrada</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<h4 class="h1">Você não tem permissão para acessar esta página pois não está logado!</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<p style="float:right">Faça <a href="{% url 'login' %}?next={{request.path}}">login</a> para uma melhor experiência.</p>
+		</div>
+	</div>
+{% endif %}
+{% endblock %}
